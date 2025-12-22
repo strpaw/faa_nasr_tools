@@ -1,0 +1,42 @@
+# Target database with NASR data
+nasr_db:
+  # host name/ip
+  host: "localhost"
+  # database name
+  database: "faa_nasr_dev"
+  # user name
+  user: ""
+  # password for the user
+  password: ""
+# Global CSV settings for reading NASR CSV files
+csv_settings:
+  # Encoding to use for UTF when reading file
+  encoding: "utf-8"
+  # delimiter character to separate CSV columns
+  delimiter: ","
+  # Character used to denote the start and end of a quoted item
+  quote_char: '"'
+# Path to the directory with NASR CSV files
+data_dir: "nasr_data/27_Nov_2025_CSV"
+# Definition of 'dictionary' tables, e.g. used for storing FIX use code, RADAR types etc.
+# Includes data to be loaded into table as list of dictionaries with:
+# key - column name
+# value - value to be stored in this table
+dict_tables:
+#  - name: "table1"
+#    data:
+#      - col1: "value_col1_row1"
+#        col2: "value_col2_row1"
+#        col3: "value_col3_row1"
+#      - col1: "value_col1_row2"
+#        col2: "value_col2_row2"
+#        col3: "value_col3_row2"
+data_tables:
+# Definition of 'data' tables -
+#  - file_name: "file1.csv"
+#    table_name: "file1"
+#    is_spatial: true
+#    columns:
+#      - "COL1"
+#      - "COL2"
+#      - "COL3"
