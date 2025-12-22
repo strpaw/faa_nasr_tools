@@ -2,7 +2,9 @@
 from pathlib import Path
 from typing import Any
 
+import pandas as pd
 from pydantic import BaseModel
+from sqlalchemy import create_engine, Engine
 from yaml import safe_load
 
 ColumName = str
@@ -98,8 +100,45 @@ def load_config(path: Path) -> Configuration:
     return Configuration(**content)
 
 
+def load_dict_table(table_name: str,
+                       data: list[dict[str, Any]],
+                       engine: Engine) -> None:
+    """Load single 'dictionary' table with data.
+
+    :param table_name: table name to insert data
+    :param data: data to be inserted into the table
+    :param engine: target database connection
+    """
+    df = pd.DataFrame(data)
+    df.to_sql(
+        name=table_name,
+        con=engine,
+        if_exists="append",
+        index=False
+    )
+
+
+def load_dict_tables(dict_tables: list[DictTableSettings],
+                        engine: Engine) -> None:
+    """Load multiple 'dictionary' tables with data.
+
+    :param dict_tables: 'dictionary' tables to be inserted (including data itself)
+    :param engine: target database connection
+    """
+    for table in dict_tables:
+        load_dict_table(table_name=table.name,
+                        data=table.data,
+                        engine=engine)
+
+
 def main():
     config = load_config(Path("config.yaml"))
+    engine = create_engine(
+        "postgresql+psycopg2://{user}:{password}@{host}:5432/{database}".format(**config.nasr_db.model_dump())
+    )
+
+    load_dict_tables(dict_tables=config.dict_tables,
+                     engine=engine)
 
 
 if __name__ == "__main__":
