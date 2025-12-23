@@ -232,6 +232,9 @@ def main():
 
     dtl.load_table(data_file_setting=data_tables_lookup["RDR.csv"])
 
+    dtl.load_table(data_file_setting=data_tables_lookup["WXL_BASE.csv"])
+    dtl.load_table(data_file_setting=data_tables_lookup["WXL_SVC.csv"])
+
 
 if __name__ == "__main__":
     main()
