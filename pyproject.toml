@@ -8,6 +8,13 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "pydantic (>=2.12.5,<3.0.0)",
+    "pandas (>=2.3.3,<3.0.0)",
+    "sqlalchemy (>=2.0.45,<3.0.0)",
+    "psycopg2 (>=2.9.11,<3.0.0)",
+    "geopandas (>=1.1.2,<2.0.0)",
+    "geoalchemy2 (>=0.18.1,<0.19.0)"
 ]
 
 [tool.poetry]
@@ -16,3 +23,8 @@ packages = [{include = "faa_nasr_tools", from = "src"}]
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pylint (>=4.0.4,<5.0.0)"
+]
