@@ -226,6 +226,9 @@ def main():
     dtl = DataTableLoader(data_dir=config.data_dir,
                           csv_settings=config.csv_settings,
                           engine=engine)
+    dtl.load_table(data_file_setting=data_tables_lookup["FIX_BASE.csv"])
+    dtl.load_table(data_file_setting=data_tables_lookup["FIX_CHRT.csv"])
+    dtl.load_table(data_file_setting=data_tables_lookup["FIX_NAV.csv"])
 
 
 if __name__ == "__main__":
