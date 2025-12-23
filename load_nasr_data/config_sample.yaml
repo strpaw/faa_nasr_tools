@@ -49,6 +49,22 @@ dict_tables:
         desc: "VFR WAYPOINT"
       - code: "WP"
         desc: "WAYPOINT"
+  - name: "rdr_type"
+    data:
+      - code: "ARSR"
+        desc: "AIR ROUTE SURVEILLANCE RADAR"
+      - code: "ASR"
+        desc: "AIRPORT SURVEILLANCE RADAR (-# DENOTES TYPE OF ASR)"
+      - code: "ASR/PAR"
+        desc: "AIRPORT SURVEILLANCE RADAR PLUS PRECISION APPROACH RADAR"
+      - code: "GCA"
+        desc: "GROUND CONTROL APPROACH"
+      - code: "PAR"
+        desc: "PRECISION APPROACH RADAR"
+      - code: "SECRA"
+        desc: "SECONDARY RADAR"
+      - code: "BCN"
+        desc: "BEACON RADAR"
 data_tables:
 # Definition of 'data' tables -
 #  - file_name: "file1.csv"
@@ -92,3 +108,15 @@ data_tables:
       - "NAV_ID"
       - "BEARING"
       - "DISTANCE"
+  - file_name: "RDR.csv"
+    table_name: "rdr"
+    is_spatial: false
+    columns:
+      - "FACILITY_ID"
+      - "FACILITY_TYPE"
+      - "STATE_CODE"
+      - "COUNTRY_CODE"
+      - "RADAR_TYPE"
+      - "RADAR_NO"
+      - "RADAR_HRS"
+      - "REMARK"
