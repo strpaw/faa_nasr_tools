@@ -159,7 +159,8 @@ class DataTableLoader:
                          delimiter=self.csv_settings.delimiter,
                          encoding=self.csv_settings.encoding,
                          quotechar=self.csv_settings.quote_char,
-                         usecols=data_file_setting.columns,)
+                         usecols=data_file_setting.columns,
+                         dtype=str)
         df = df.apply(lambda col: col.str.strip() if col.dtype == "object" else col)
         df.rename(columns={col: col.lower()
                            for col in df.columns},
