@@ -1,5 +1,7 @@
 """Load NASR data from CSV file into database"""
 from dataclasses import dataclass
+from logging import handlers
+import logging
 from pathlib import Path
 from typing import Any
 
@@ -91,6 +93,54 @@ class Configuration(BaseModel):
     dict_tables: list[DictTableSettings]
     data_tables: list[DataFileSettings]
 
+def configure_logging(log_dir=Path("logs")) -> None:
+    """Setup logging for the script.
+
+    :param log_dir: path to the directory with log files.
+    """
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / "log.txt"
+
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+
+    formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+    file_handler = handlers.RotatingFileHandler(
+        log_path,
+        backupCount=7,
+        encoding="utf-8",
+    )
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.INFO)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+    console_handler.setLevel(logging.INFO)
+
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+
+
+def load_log_decorator(func):
+    """Decorator for logging loading data into tables."""
+    def wrapper(*args, **kwargs):
+        table_name = kwargs.get("table_name") or kwargs["data_file_setting"].table_name
+        data = kwargs.get("data")
+
+        logging.info("Table %s | Inserting data...", table_name)
+
+        try:
+            result = func(*args, **kwargs)
+        except Exception as e:
+            logging.exception(e)
+            return None
+
+        logging.info("Table %s | %s rows inserted.", table_name, len(data))
+        return result
+
+    return wrapper
+
 
 def load_config(path: Path) -> Configuration:
     """Return configuration object based on configuration file.
@@ -102,6 +152,7 @@ def load_config(path: Path) -> Configuration:
     return Configuration(**content)
 
 
+@load_log_decorator
 def load_dict_table(table_name: str,
                        data: list[dict[str, Any]],
                        engine: Engine) -> None:
@@ -167,6 +218,7 @@ class DataTableLoader:
                   inplace=True)
         return df
 
+    @load_log_decorator
     def _load_non_spatial(self, data: pd.DataFrame,
                             data_file_setting: DataFileSettings) -> None:
         """Load NASR CSV file into tables without spatial information.
@@ -179,6 +231,7 @@ class DataTableLoader:
                     if_exists="append",
                     index=False)
 
+    @load_log_decorator
     def _load_spatial(self,
                         data: pd.DataFrame,
                         data_file_setting: DataFileSettings) -> None:
@@ -215,6 +268,7 @@ class DataTableLoader:
 
 
 def main():
+    configure_logging()
     config = load_config(Path("config.yaml"))
     engine = create_engine(
         "postgresql+psycopg2://{user}:{password}@{host}:5432/{database}".format(**config.nasr_db.model_dump())
