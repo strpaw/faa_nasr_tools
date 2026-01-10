@@ -267,6 +267,22 @@ data_tables:
       - "NAV_ID"
       - "BEARING"
       - "DISTANCE"
+  # Location Identifiers (LID)
+  - file_name: "LID.csv"
+    table_name: "lid"
+    is_spatial: false
+    columns:
+      - "COUNTRY_CODE"
+      - "LOC_ID"
+      - "REGION_CODE"
+      - "STATE"
+      - "CITY"
+      - "LID_GROUP"
+      - "FAC_TYPE"
+      - "FAC_NAME"
+      - "RESP_ARTCC_ID"
+      - "ARTCC_COMPUTER_ID"
+      - "FSS_ID"
   # Navigation Aids (NAV)
   - file_name: "NAV_BASE.csv"
     table_name: "navaid"
