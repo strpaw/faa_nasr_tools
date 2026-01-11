@@ -49,6 +49,19 @@ dict_tables:
         desc: "VFR WAYPOINT"
       - code: "WP"
         desc: "WAYPOINT"
+  # Military operations (MIL_OPS)
+  - name: "mil_ops_oper_code"
+    data:
+      - code: "A"
+        facility: "U.S. AIR FORCE"
+      - code: "C"
+        facility: "U.S. COAST GUARD"
+      - code: "F"
+        facility: "FEDERAL AVIATION ADMIN"
+      - code: "N"
+        facility: "U.S. NAVY"
+      - code: "R"
+        facility: "U.S. ARMY"
   # Navigation Aids (NAV)
   - name: "navaid_type"
     data:
@@ -283,6 +296,23 @@ data_tables:
       - "RESP_ARTCC_ID"
       - "ARTCC_COMPUTER_ID"
       - "FSS_ID"
+  # Military Operations (MIL_OPS)
+  - file_name: "MIL_OPS.csv"
+    table_name: "mil_ops"
+    is_spatial: false
+    columns:
+      - "SITE_NO"
+      - "SITE_TYPE_CODE"
+      - "STATE_CODE"
+      - "ARPT_ID"
+      - "CITY"
+      - "COUNTRY_CODE"
+      - "MIL_OPS_OPER_CODE"
+      - "MIL_OPS_CALL"
+      - "MIL_OPS_HRS"
+      - "AMCP_HRS"
+      - "PMSV_HRS"
+      - "REMARK"
   # Navigation Aids (NAV)
   - file_name: "NAV_BASE.csv"
     table_name: "navaid"

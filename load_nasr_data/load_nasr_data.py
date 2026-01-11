@@ -289,6 +289,8 @@ def main():
 
     dtl.load_table(data_file_setting=data_tables_lookup["LID.csv"])
 
+    dtl.load_table(data_file_setting=data_tables_lookup["MIL_OPS.csv"])
+
     dtl.load_table(data_file_setting=data_tables_lookup["NAV_BASE.csv"])
     dtl.load_table(data_file_setting=data_tables_lookup["NAV_CKPT.csv"])
     dtl.load_table(data_file_setting=data_tables_lookup["NAV_RMK.csv"])
