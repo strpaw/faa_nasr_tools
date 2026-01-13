@@ -2,3 +2,5 @@
 .idea
 config.yaml
 poetry.lock
+nasr_data
+logs
