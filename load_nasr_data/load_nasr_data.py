@@ -283,6 +283,8 @@ def main():
                           engine=engine)
     dtl.load_table(data_file_setting=data_tables_lookup["AWOS.csv"])
 
+    dtl.load_table(data_file_setting=data_tables_lookup["COM.csv"])
+
     dtl.load_table(data_file_setting=data_tables_lookup["FIX_BASE.csv"])
     dtl.load_table(data_file_setting=data_tables_lookup["FIX_CHRT.csv"])
     dtl.load_table(data_file_setting=data_tables_lookup["FIX_NAV.csv"])
